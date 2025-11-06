@@ -13,19 +13,162 @@ A custom Python package for connecting to Snowflake with MFA authentication and 
 
 ## Installation
 
-### From Source
+Follow these simple steps to download and install the package:
 
+### Prerequisites
+
+Before you begin, make sure you have:
+- **Python 3.7 or higher** installed on your computer
+- **pip** (Python package installer) - usually comes with Python
+- **Git** (if downloading from a repository) or access to the package files
+
+To check if you have Python installed, open a terminal/command prompt and run:
 ```bash
-pip install -e .
+python --version
+```
+or
+```bash
+python3 --version
 ```
 
-### Dependencies
+### Step-by-Step Installation Guide
 
-Install required packages:
+#### Option 1: Install from Local Source (Recommended)
 
-```bash
-pip install -r requirements.txt
+1. **Download or Clone the Package**
+   - If you have the package files in a folder, navigate to that folder
+   - If downloading from a repository, clone it:
+     ```bash
+     git clone <repository-url>
+     cd Snowflake-Connector
+     ```
+
+2. **Open Terminal/Command Prompt**
+   - **Windows**: Press `Win + R`, type `cmd`, and press Enter
+   - **Mac/Linux**: Open Terminal application
+   - Navigate to the package folder:
+     ```bash
+     cd path/to/Snowflake-Connector
+     ```
+
+3. **Create a Virtual Environment (Recommended)**
+   This keeps the package isolated from other Python projects:
+   ```bash
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate it
+   # On Windows:
+   venv\Scripts\activate
+   # On Mac/Linux:
+   source venv/bin/activate
+   ```
+   You should see `(venv)` at the beginning of your command prompt when activated.
+
+4. **Install the Package**
+   ```bash
+   pip install -e .
+   ```
+   This command will automatically install all required dependencies (snowflake-connector-python and pandas).
+
+5. **Verify Installation**
+   ```bash
+   python -c "import snowflake_connector; print('Installation successful!')"
+   ```
+   If you see "Installation successful!" without errors, you're ready to go!
+
+#### Option 2: Install Dependencies Separately
+
+If you prefer to install dependencies manually:
+
+1. Navigate to the package folder in terminal/command prompt
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Install the package:
+   ```bash
+   pip install -e .
+   ```
+
+### Troubleshooting Installation Issues
+
+**Problem**: `pip` command not found
+- **Solution**: Make sure Python is installed and added to your system PATH. Try using `python -m pip` instead of just `pip`.
+
+**Problem**: Permission denied errors
+- **Solution**: On Mac/Linux, try `pip install --user -e .` or use a virtual environment.
+
+**Problem**: Package not found after installation
+- **Solution**: Make sure you're using the same Python environment where you installed the package. Activate your virtual environment if you created one.
+
+**Problem**: Dependency installation fails
+- **Solution**: Make sure you have internet connection. Some dependencies may require additional system libraries. For Snowflake connector, you may need to install additional dependencies based on your operating system.
+
+## Quick Start
+
+After installation, you can start using the package in just 3 steps:
+
+1. **Import the package**
+   ```python
+   import snowflake_connector as con
+   ```
+
+2. **Connect to Snowflake** (you'll be prompted for your credentials)
+   ```python
+   con.connect()
+   ```
+   When prompted, enter:
+   - Your Snowflake account identifier (e.g., `xy12345`)
+   - Your username
+   - Your password
+   - MFA token (if required)
+
+3. **Run a query**
+   ```python
+   df = con.query("SELECT * FROM database.schema.my_table")
+   print(df.head())
+   ```
+
+4. **Disconnect when done**
+   ```python
+   con.disconnect()
+   ```
+
+That's it! You're now connected and can run queries. See the detailed usage examples below for more options.
+
+### Complete Example for First-Time Users
+
+Copy and paste this into a new Python file (e.g., `my_first_query.py`) and run it:
+
+```python
+import snowflake_connector as con
+
+# Step 1: Connect to Snowflake
+# You'll be prompted to enter your credentials
+print("Connecting to Snowflake...")
+con.connect()
+
+# Step 2: Run your first query
+# Replace 'database.schema.table_name' with your actual table
+print("Running query...")
+df = con.query("SELECT * FROM database.schema.table_name LIMIT 10")
+
+# Step 3: View the results
+print("\nQuery Results:")
+print(df)
+
+# Step 4: Disconnect
+print("\nDisconnecting...")
+con.disconnect()
+print("Done!")
 ```
+
+**To run this script:**
+1. Save it as a `.py` file (e.g., `my_first_query.py`)
+2. Open terminal/command prompt
+3. Navigate to where you saved the file
+4. Run: `python my_first_query.py`
 
 ## Usage
 
