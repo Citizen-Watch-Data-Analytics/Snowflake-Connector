@@ -35,24 +35,92 @@ python3 --version
 
 #### Option 1: Install from Local Source (Recommended)
 
-1. **Download or Clone the Package**
-   - If you have the package files in a folder, navigate to that folder
-   - If downloading from a repository, clone it:
-     ```bash
-     git clone <repository-url>
-     cd Snowflake-Connector
-     ```
+1. **Choose a Good Location to Clone**
+   
+   **⚠️ Important**: Don't clone in your root directory (like `C:\` or `/`). Instead, use a dedicated folder:
+   
+   **Recommended locations:**
+   - **Windows**: `C:\Users\YourName\Documents\` or `C:\Users\YourName\Desktop\` or `C:\Users\YourName\Projects\`
+   - **Mac/Linux**: `~/Documents/` or `~/Desktop/` or `~/Projects/`
+   
+   **Create a projects folder (recommended):**
+   ```bash
+   # Windows (in Command Prompt)
+   mkdir C:\Users\YourName\Projects
+   cd C:\Users\YourName\Projects
+   
+   # Mac/Linux
+   mkdir ~/Projects
+   cd ~/Projects
+   ```
 
-2. **Open Terminal/Command Prompt**
-   - **Windows**: Press `Win + R`, type `cmd`, and press Enter
-   - **Mac/Linux**: Open Terminal application
-   - Navigate to the package folder:
-     ```bash
-     cd path/to/Snowflake-Connector
-     ```
+2. **Clone the Repository**
+   
+   Open Terminal/Command Prompt and navigate to your chosen location, then clone:
+   ```bash
+   # Navigate to your projects folder first
+   # Windows example:
+   cd C:\Users\YourName\Documents
+   
+   # Mac/Linux example:
+   cd ~/Documents
+   
+   # Now clone the repository
+   git clone <repository-url>
+   
+   # This creates a folder called "Snowflake-Connector"
+   # Navigate into it
+   cd Snowflake-Connector
+   ```
 
-3. **Create a Virtual Environment (Recommended)**
-   This keeps the package isolated from other Python projects:
+3. **Verify You're in the Right Directory**
+   
+   **Before proceeding, make sure you're inside the Snowflake-Connector folder!**
+   
+   Check your current location:
+   ```bash
+   # Windows (Command Prompt)
+   cd
+   # or
+   echo %cd%
+   
+   # Windows (PowerShell)
+   pwd
+   # or
+   Get-Location
+   
+   # Mac/Linux
+   pwd
+   ```
+   
+   You should see a path ending with `Snowflake-Connector`. Also verify the folder contains these files:
+   ```bash
+   # Windows
+   dir
+   
+   # Mac/Linux
+   ls
+   ```
+   
+   You should see files like `setup.py`, `requirements.txt`, `README.md`, and a `snowflake_connector` folder.
+   
+   **If you don't see these files, you're in the wrong directory!** Navigate to the correct location:
+   ```bash
+   # Find where you cloned it (check common locations)
+   # Windows
+   cd C:\Users\YourName\Documents\Snowflake-Connector
+   # or
+   cd C:\Users\YourName\Desktop\Snowflake-Connector
+   
+   # Mac/Linux
+   cd ~/Documents/Snowflake-Connector
+   # or
+   cd ~/Desktop/Snowflake-Connector
+   ```
+
+4. **Create a Virtual Environment (Recommended)**
+   
+   **⚠️ Make sure you're still in the Snowflake-Connector directory!** Then create a virtual environment:
    ```bash
    # Create virtual environment
    python -m venv venv
@@ -65,13 +133,20 @@ python3 --version
    ```
    You should see `(venv)` at the beginning of your command prompt when activated.
 
-4. **Install the Package**
+5. **Install the Package**
+   
+   **⚠️ Important**: You MUST be in the Snowflake-Connector directory (where setup.py is located) to run this command!
    ```bash
+   # Verify you're in the right place (should see setup.py, requirements.txt, etc.)
+   # Windows: dir
+   # Mac/Linux: ls
+   
+   # Now install (the dot means "current directory")
    pip install -e .
    ```
    This command will automatically install all required dependencies (snowflake-connector-python and pandas).
 
-5. **Verify Installation**
+6. **Verify Installation**
    ```bash
    python -c "import snowflake_connector; print('Installation successful!')"
    ```
@@ -81,13 +156,26 @@ python3 --version
 
 If you prefer to install dependencies manually:
 
-1. Navigate to the package folder in terminal/command prompt
-2. Install dependencies:
+1. **Navigate to the Snowflake-Connector folder**
+   ```bash
+   # Make sure you're in the Snowflake-Connector directory
+   # Windows: cd C:\Users\YourName\Documents\Snowflake-Connector
+   # Mac/Linux: cd ~/Documents/Snowflake-Connector
+   
+   # Verify you're in the right place
+   # Windows: dir
+   # Mac/Linux: ls
+   # You should see setup.py, requirements.txt, README.md
+   ```
+
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-3. Install the package:
+
+3. **Install the package:**
    ```bash
+   # Make sure you're still in the Snowflake-Connector directory!
    pip install -e .
    ```
 
@@ -95,6 +183,35 @@ If you prefer to install dependencies manually:
 
 **Problem**: `pip` command not found
 - **Solution**: Make sure Python is installed and added to your system PATH. Try using `python -m pip` instead of just `pip`.
+
+**Problem**: "Cannot find setup.py" or "No such file or directory" error
+- **Solution**: You're not in the correct directory! 
+  1. Check where you are: 
+     - Windows CMD: `cd` or `echo %cd%`
+     - Windows PowerShell: `pwd`
+     - Mac/Linux: `pwd`
+  2. Navigate to the Snowflake-Connector folder:
+     - Windows: `cd C:\Users\YourName\Documents\Snowflake-Connector`
+     - Mac/Linux: `cd ~/Documents/Snowflake-Connector`
+  3. Verify you're in the right place: `dir` (Windows) or `ls` (Mac/Linux) - you should see `setup.py`
+  4. Try the installation again: `pip install -e .`
+
+**Problem**: Cloned in the wrong location (root directory, can't find it)
+- **Solution**: 
+  1. Search for the folder:
+     - Windows: Open File Explorer and search for "Snowflake-Connector"
+     - Mac: Use Spotlight (Cmd+Space) and search for "Snowflake-Connector"
+     - Linux: `find ~ -name "Snowflake-Connector" -type d`
+  2. Once found, note the full path
+  3. Navigate to it in terminal: `cd "full/path/to/Snowflake-Connector"`
+  4. If you cloned in root by mistake, move it to a better location:
+     ```bash
+     # Windows: Use File Explorer to move the folder, or:
+     move C:\Snowflake-Connector C:\Users\YourName\Documents\Snowflake-Connector
+     
+     # Mac/Linux:
+     mv ~/Snowflake-Connector ~/Documents/Snowflake-Connector
+     ```
 
 **Problem**: Permission denied errors
 - **Solution**: On Mac/Linux, try `pip install --user -e .` or use a virtual environment.
