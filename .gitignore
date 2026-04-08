@@ -66,5 +66,6 @@ Thumbs.db
 # Project specific
 *.log
 .env
-.venv
+.venv/
+.ipynb_checkpoints/
 
